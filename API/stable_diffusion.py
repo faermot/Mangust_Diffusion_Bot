@@ -43,7 +43,6 @@ def render_photo(user_id):
             for k, v in value.items():
                 payload[k] = v
 
-    print(payload)
     response = requests.post(url=f'{url}/sdapi/v1/txt2img', json=payload)
     r = response.json()
     for i in r['images']:

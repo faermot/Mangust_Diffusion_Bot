@@ -3,8 +3,7 @@ from aiogram.dispatcher.filters import Command
 
 start_menu = InlineKeyboardMarkup(row_width=1)
 start_menu.add(
-    InlineKeyboardButton(text="🎆 Получить пример", callback_data="get_example"),
-    InlineKeyboardButton(text="⚙️ Настройки", callback_data="settings")
+    InlineKeyboardButton(text="🎆 Получить пример", callback_data="get_example")
 )
 
 params_menu = InlineKeyboardMarkup(row_width=2)
@@ -87,4 +86,5 @@ models_menu = InlineKeyboardMarkup(row_width=1)
 models_menu.add(
     InlineKeyboardButton(text="🏞 ANYTHING MIDJ v1.0", callback_data="midj"),
     InlineKeyboardButton(text="🌄 RevAnimated v1.22 (🆕 BEST)", callback_data="revAnim"),
+    InlineKeyboardButton(text="🌁 Pruned v1.5", callback_data="pruned")
 )

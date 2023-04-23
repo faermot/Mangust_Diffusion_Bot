@@ -12,6 +12,7 @@ import access_bot as ab
 import keyboard as kb
 import API.stable_diffusion as sd
 import database.functions as df
+import enchant
 
 import logging
 
@@ -68,7 +69,7 @@ async def process_key(message: types.Message, state: FSMContext):
             "Составь максимально точный запрос, и отправь его в бота. "
             "От точности запроса зависит качество генерации изображения. \n"
             "\nЧто бы получить пример такого запроса, воспользуйся кнопкой ниже.\n"
-            "\nБот понимает запросы на английском языке. ",
+            "\nБот понимает запросы только на английском языке. ",
             parse_mode="Markdown",
             reply_markup=kb.start_menu
         )
@@ -96,7 +97,7 @@ async def callback_handler(callback: types.CallbackQuery):
               ]
     sampling_steps = ["10", "14", "16", "20", "23", "25", "30", "35", "40", "45", "50", "55"]
     cfg_scale = ["1.0", "3.0", "5.0", "7.0", "9.0", "11.0", "13.0", "15.0", "19.0", "26.0", "29.0", "34.0"]
-    models = ["midj", "revAnim"]
+    models = ["midj", "revAnim", "pruned"]
     if callback.data == "get_example":
         example = open("example.png", 'rb')
         await callback.message.answer_photo(
@@ -170,7 +171,6 @@ async def callback_handler(callback: types.CallbackQuery):
             )
         except:
             pass
-        print(new_data)
 
     elif callback.data == "cfg_scale":
         await callback.message.edit_text(
@@ -187,7 +187,6 @@ async def callback_handler(callback: types.CallbackQuery):
             "✅ Успешно. \nВы можете продолжить настраивать параметры, или начать генерацию.",
             reply_markup=kb.params_menu
         )
-        print(new_data)
 
     elif callback.data == "set_default":
         user_id = ab.get_user_id(callback)
@@ -221,12 +220,15 @@ async def callback_handler(callback: types.CallbackQuery):
             value = "revAnimated_v122.safetensors [f8bb2922e1]"
             new_data = df.set_model_to_user(user_id, value)
 
+        elif callback.data == "pruned":
+            value = "v1-5-pruned.ckpt [e1441589a6]"
+
         await callback.message.edit_text(
             "*✅ Успешно. *\nВы можете продолжить настраивать параметры, или начать генерацию.",
             reply_markup=kb.params_menu,
             parse_mode="Markdown"
         )
-        print(new_data)
+
 
     elif callback.data == "resume":
         await callback.message.edit_text(
@@ -237,22 +239,18 @@ async def callback_handler(callback: types.CallbackQuery):
         await callback.message.delete()
         await bot.send_photo(callback.from_user.id, photo)
 
-    elif callback.data == "start":
-        pass
-
 
 @dp.message_handler(content_types=['text'])
 async def generate_photo(message: types.Message):
-    user_id = ab.get_user_id(message)
     prompt = message.text
+    user_id = ab.get_user_id(message)
     df.add_prompt_to_user(user_id, prompt)
     await bot.send_message(
         message.chat.id,
         "🌄 Вы можете настроить генерацию, используя кнопки ниже,"
         "или пропустить этот шаг. В таком случае будут использованы "
         "стандартные настройки.",
-        reply_markup=kb.params_menг
-    )
+        reply_markup=kb.params_menu)
 
 
 if __name__ == '__main__':
