@@ -1,3 +1,12 @@
-import google_translate_api_python
-a=google_translate_api_python.GoogleTranslate(domainnames="ru", sl="ru", tl="en")
-print(a.trans("Hello World."))
+import requests
+
+
+def translate(text):
+    url = "https://translate.terraprint.co/translate"
+    params = {"q": text,
+              "source": "auto",
+              "target": "en"}
+    response = requests.post(url, params).json()
+    prompt = response.get("translatedText")
+    print(prompt)
+    return prompt

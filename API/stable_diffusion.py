@@ -3,10 +3,13 @@ from PIL import Image, PngImagePlugin
 import io
 import base64
 import database.functions as df
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
 
 def render_photo(user_id):
-    url = "http://127.0.0.1:7860"
+    url = os.getenv("URL")
     model = df.get_model_by_user(user_id)
     option_payload = {
         "sd_model_checkpoint": "ANYTHING_MIDJOURNEY_V_4.1.ckpt [041eabfcc6]"
@@ -17,6 +20,9 @@ def render_photo(user_id):
 
     prompt = df.get_prompt_by_user(user_id)
     print(prompt)
+    negative_prompt = df.get_negative_prompt_by_user(user_id)
+    print(negative_prompt)
+
     arguments = df.get_arguments_by_user(user_id)
     styles = df.get_style_by_user(user_id)
 
@@ -24,6 +30,7 @@ def render_photo(user_id):
 
     payload = {
         "prompt": "Mangust",
+        "width": 512,
         "steps": 20,
         "cfg_scale": 7,
         "sampler_index": "Euler a",
@@ -37,6 +44,7 @@ def render_photo(user_id):
                            "missing fingers, watermark"
     }
     payload.update(prompt)
+    payload.update(negative_prompt)
     payload.update(styles)
     for key, value in arguments.items():
         if isinstance(value, dict):
