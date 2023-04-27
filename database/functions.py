@@ -53,7 +53,6 @@ def add_prompt_to_user(user_id, prompt):
 
 def get_prompt_by_user(user_id):
     for prompt in coll.find({"_id": user_id}, {"_id": 0, "prompt": 1}):
-        print(prompt)
         return prompt
 
 
@@ -65,7 +64,6 @@ def add_negative_prompt_to_user(user_id, negative_prompt):
 
 def get_negative_prompt_by_user(user_id):
     for negative_prompt in coll.find({"_id": user_id}, {"_id": 0, "negative_prompt": 1}):
-        print(negative_prompt)
         return negative_prompt
 
 
@@ -73,13 +71,11 @@ def add_argument_to_user(user_id, param, value):
     current_data = {"_id": user_id}
     new_data = {"$set": {f"arguments.{param}": value}}
     coll.update_one(current_data, new_data)
-    print(new_data)
     return new_data
 
 
 def get_arguments_by_user(user_id):
     for arguments in coll.find({"_id": user_id}, {"_id": 0, "arguments": 1}):
-        print(arguments)
         return arguments
 
 
@@ -92,7 +88,6 @@ def add_style_to_user(user_id, value):
 
 def get_style_by_user(user_id):
     for style in coll.find({"_id": user_id}, {"_id": 0, "styles": 1}):
-        print(style)
         return style
 
 
@@ -105,7 +100,6 @@ def set_model_to_user(user_id, value):
 
 def get_model_by_user(user_id):
     for model in coll.find({"_id": user_id}, {"_id": 0, "sd_model_checkpoint": 1}):
-        print(model)
         return model
 
 
@@ -135,10 +129,10 @@ def convert_format(no_convert_format):
         format = "1:1"
         return format
     elif no_convert_format == 683:
-        format = "1:1"
+        format = "4:3"
         return format
     elif no_convert_format == 910:
-        format = "1:1"
+        format = "16:9"
         return format
 
 
@@ -153,7 +147,6 @@ def get_info_for_render(user_id):
     no_convert_format = arguments.get("arguments").get("width")
     format = convert_format(no_convert_format)
     model = get_name_model(name_model)
-    print(name_model)
     style = get_style_by_user(user_id).get("styles")
     info = f"*📋 Предпросмотр:*\n" \
            f"\n" \
