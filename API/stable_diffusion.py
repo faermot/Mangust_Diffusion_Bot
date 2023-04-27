@@ -17,17 +17,10 @@ def render_photo(user_id):
     option_payload.update(model)
     requests.post(url=f'{url}/sdapi/v1/options', json=option_payload)
 
-
     prompt = df.get_prompt_by_user(user_id)
-    print(prompt)
     negative_prompt = df.get_negative_prompt_by_user(user_id)
-    print(negative_prompt)
-
     arguments = df.get_arguments_by_user(user_id)
     styles = df.get_style_by_user(user_id)
-
-    # revAnimated_v122.safetensors [f8bb2922e1]
-
     payload = {
         "prompt": "Mangust",
         "width": 512,
