@@ -2,7 +2,7 @@ Mangust Diffusion Bot
 =
 ![Python versions](https://img.shields.io/pypi/pyversions/libretranslate)
 
-Телеграм бот для генерации изображений по запросу при помощи Stable Diffusion
+[Телеграм бот](https://t.me/mangust_diffusion_bot) для генерации изображений по запросу при помощи Stable Diffusion
 
 ## Установка
 
@@ -30,4 +30,3 @@ URL = "http://127.0.0.1:7860"
 
 ## Об авторе
 ### Карасев Илья
-*Готовый работающий бот можно посмотреть [тут](https://t.me/mangust_diffusion_bot)*
