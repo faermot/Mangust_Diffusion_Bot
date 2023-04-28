@@ -214,6 +214,7 @@ async def callback_handler(callback: types.CallbackQuery, state: FSMContext):
             reply_markup=kb.params_menu,
             parse_mode="Markdown"
         )
+        await state.finish()
 
     elif callback.data == "model":
         await callback.message.edit_text(
@@ -246,8 +247,8 @@ async def callback_handler(callback: types.CallbackQuery, state: FSMContext):
 
     elif callback.data == "negative_prompt":
         await callback.message.edit_text(
-            "Отправьте негативный запрос: ",
-            reply_markup=kb.back_button
+            "Опишите то, что бы вы *не* хотели видеть на изображении: ",
+            parse_mode="Markdown"
         )
         await Form.text.set()
 
@@ -318,7 +319,7 @@ async def process_text(message: types.Message, state: FSMContext):
             parse_mode="Markdown"
         )
     else:
-        negative_prompt = tr.translate(no_translated_negative_prompt)
+        negative_prompt = tr.check_language(no_translated_negative_prompt)
         df.add_negative_prompt_to_user(user_id, negative_prompt)
         await message.reply(
             "*✅ Негативный запрос был успешно применён.*"
@@ -341,7 +342,7 @@ async def generate_photo(message: types.Message):
         )
     else:
         try:
-            prompt = tr.translate(no_translated_prompt)
+            prompt = tr.check_language(no_translated_prompt)
             df.add_prompt_to_user(g.get_user_id(message), prompt)
             await bot.send_message(
                 message.chat.id,
