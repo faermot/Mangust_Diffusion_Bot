@@ -35,7 +35,7 @@ def create_user_in_db(user_id, name):
                            "mutation hands, mutation fingers, extra fingers, "
                            "missing fingers, watermark",
         "styles": [],
-        "sd_model_checkpoint": "ANYTHING_MIDJOURNEY_V_4.1.ckpt [041eabfcc6]",
+        "sd_model_checkpoint": "deliberate_v2.safetensors [9aba26abdf]",
         "arguments": {
             "steps": 20,
             "cfg_scale": 7,
@@ -169,7 +169,7 @@ def set_default_params(user_id):
     new_data = {"$set": {
         "negative_prompt": " ",
         "styles": [],
-        "sd_model_checkpoint": "ANYTHING_MIDJOURNEY_V_4.1.ckpt [041eabfcc6]",
+        "sd_model_checkpoint": "deliberate_v2.safetensors [9aba26abdf]",
         "arguments": {
             "steps": 20,
             "cfg_scale": 7,
