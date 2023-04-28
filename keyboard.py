@@ -101,11 +101,6 @@ start_render.add(
     InlineKeyboardButton(text="🚀 Начать генерацию", callback_data="start_render")
 )
 
-back_button = InlineKeyboardMarkup(row_width=1)
-back_button.add(
-    InlineKeyboardButton(text="⬅️ Назад", callback_data="back_in_menu")
-)
-
 regenerate_photo_button = InlineKeyboardMarkup(row_width=1)
 regenerate_photo_button.add(
     InlineKeyboardButton(text="🔄 Повторить", callback_data="repeat")
