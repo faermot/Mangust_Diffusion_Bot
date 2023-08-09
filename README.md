@@ -1,6 +1,8 @@
-Mangust Diffusion Bot
+Mangust Diffusion Bot 
 =
-![Python versions](https://img.shields.io/pypi/pyversions/libretranslate)
+
+![Python](images/python_icon.svg)
+
 
 [Телеграм бот](https://t.me/mangust_diffusion_bot) для генерации изображений по запросу при помощи Stable Diffusion
 
@@ -22,11 +24,7 @@ URL = "http://127.0.0.1:7860"
 > или же у вас должна быть публичная ссылка запущенной модели.
 
 
-## Технологии
+## Технологии 
 - Python 3.10
 - Aiogram 2.23.1
 > Подробнее в requirements.txt
-
-
-## Об авторе
-### Карасев Илья
